@@ -1,7 +1,8 @@
 import imp
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions
-from .serializers import UserSerializer, GroupSerializer
+from .models import Question, Choice
+from .serializers import UserSerializer, GroupSerializer, QuestionSerializer, ChoiceSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,3 +15,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permissions_classes = [permissions.IsAuthenticated]
+
+class QuestionView(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+class ChoiceView(viewsets.ReadOnlyModelViewSet):
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer
